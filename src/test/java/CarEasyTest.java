@@ -21,11 +21,6 @@ public class CarEasyTest {
     }
 
     @Test
-    public void test_default_behavior_temperature(){
-        assertEquals(0.0, myFerrari.getEngineTemperature(), "New test double should return 0.0");
-    }
-
-    @Test
     public void test_stubbing_mock(){
         expect(myFerrari.needsFuel()).andReturn(true);
         replay(myFerrari);
