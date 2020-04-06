@@ -16,7 +16,7 @@ public class CarEasyTest {
     }
 
     @Test
-    public void test_default_behavior_needsFuel(){
+    public void test_default_behavior_needs_fuel(){
         assertFalse(myFerrari.needsFuel(), "New test double should return False as boolean");
     }
 
@@ -26,6 +26,7 @@ public class CarEasyTest {
         replay(myFerrari);
         assertTrue(myFerrari.needsFuel());
 
+        verify(myFerrari);
     }
 
     @Test
@@ -35,28 +36,29 @@ public class CarEasyTest {
         assertThrows(RuntimeException.class, () -> {
             myFerrari.needsFuel();
         });
+
+        verify(myFerrari);
     }
-
-
 
     @Test
     public void test_enginetemp() {
         expect(myFerrari.getEngineTemperature()).andReturn(100.0);
         replay(myFerrari);
-        assertThat(myFerrari.getEngineTemperature()).isEqualTo(100.0);
 
-        EasyMock.verify(myFerrari);
+        double expected = myFerrari.getEngineTemperature();
+        assertThat(expected).isEqualTo(100.0);
+
+        verify(myFerrari);
     }
-
-
-
 
     @Test
     public void testGetProductionYearMock() {
         expect(myFerrari.getYear()).andReturn(1943);
         replay(myFerrari);
 
-        assertThat(myFerrari.getYear()).isEqualTo(1943);
+        int year = myFerrari.getYear();
+
+        assertThat(year).isEqualTo(1943);
 
         verify(myFerrari);
     }
@@ -66,7 +68,9 @@ public class CarEasyTest {
         expect(myFerrari.getYear()).andReturn(1927);
         replay(myFerrari);
 
-        assertThat(myFerrari.getYear()).isNotEqualTo(1923);
+        int year = myFerrari.getYear();
+
+        assertThat(year).isNotEqualTo(1923);
 
         verify(myFerrari);
     }
@@ -76,6 +80,8 @@ public class CarEasyTest {
         expect(myFerrari.needsFuel()).andReturn(true);
         replay(myFerrari);
         assertTrue(myFerrari.needsFuel());
+
+        verify(myFerrari);
     }
 
     @Test
@@ -83,6 +89,8 @@ public class CarEasyTest {
         expect(myFerrari.needsFuel()).andReturn(false);
         replay(myFerrari);
         assertFalse(myFerrari.needsFuel());
+
+        verify(myFerrari);
     }
 
     @Test
@@ -90,6 +98,8 @@ public class CarEasyTest {
         expect(myFerrari.needsFuel()).andReturn(false);
         replay(myFerrari);
         assertNotEquals(myFerrari.needsFuel(), 42);
+
+        verify(myFerrari);
     }
 
 
