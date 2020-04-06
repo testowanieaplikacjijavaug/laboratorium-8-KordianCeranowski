@@ -57,9 +57,10 @@ class NotesServiceTest {
 
     @Test
     void averageOfTest() {
-
         notesService.averageOf("Bob");
-        EasyMock.expectLastCall().andAnswer(EasyMock::anyFloat).times(1);
+        EasyMock.expectLastCall().andAnswer(() -> {
+            return 3f;
+        }).times(1);
         replay(notesService);
 
         notesService.averageOf("Bob");
