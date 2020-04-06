@@ -61,16 +61,15 @@ class NotesStorageTest {
         notes.add(note);
 
         notesStorage.getAllNotesOf(anyString());
-        EasyMock.expectLastCall().andAnswer(() -> notes).times(2);
+        EasyMock.expectLastCall().andAnswer(() -> notes).times(1);
         replay(notesStorage);
 
-        assertThat(notesStorage.getAllNotesOf(anyString())).isEqualTo(notes);
-        assertThat(notesStorage.getAllNotesOf(anyString())).isEqualTo(notes);
+        notesStorage.getAllNotesOf(anyString());
         verify(notesStorage);
     }
 
     @AfterEach
-    public void tearDown() {
+     void tearDown() {
         notesStorage = null;
     }
 

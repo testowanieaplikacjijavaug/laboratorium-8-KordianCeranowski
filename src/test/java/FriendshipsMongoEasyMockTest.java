@@ -23,12 +23,12 @@ class FriendshipsMongoEasyMockTest {
 
     @Test
     public void mockingWorksAsExpected(){
-        Person joe = new Person("Joe");
+        Person bob = new Person("Bob");
         //Zapisanie zachowania - co sie ma stac
-        expect(friends.findByName("Joe")).andReturn(joe);
+        expect(friends.findByName("Bob")).andReturn(bob);
         //Odpalenie obiektu do sprawdzenia zachowania
         replay(friends);
-        assertThat(friends.findByName("Joe")).isEqualTo(joe);
+        assertThat(friends.findByName("Bob")).isEqualTo(bob);
     }
 
     @Test
@@ -37,24 +37,30 @@ class FriendshipsMongoEasyMockTest {
     }
 
     @Test
-    public void joeHas5Friends(){
-        List<String> expected = Arrays.asList(new String[]{"Karol","Dawid","Maciej","Tomek","Adam"});
-        Person joe = createMock(Person.class);
-        expect(friends.findByName("Joe")).andReturn(joe);
-        expect(joe.getFriends()).andReturn(expected);
+    public void bobHas5Friends(){
+        List<String> expected = Arrays.asList("Karol","Dawid","Maciej","Tomek","Adam");
+        Person bob = createMock(Person.class);
+        expect(friends.findByName("Bob")).andReturn(bob);
+        expect(bob.getFriends()).andReturn(expected);
         replay(friends);
-        replay(joe);
-        assertThat(friendships.getFriendsList("Joe")).hasSize(5).containsOnly("Karol","Dawid","Maciej","Tomek","Adam");
+        replay(bob);
+        assertThat(friendships.getFriendsList("Bob")).hasSize(5).containsOnly("Karol","Dawid","Maciej","Tomek","Adam");
     }
 
     @Test
-    public void joeDoesHaveFriends(){
-        assertThat(friendships.getFriendsList("Joe")).isEmpty();
+    public void bobDoesNotHaveFriends(){
+        List<String> expected = new ArrayList<>();
+        Person bob = createMock(Person.class);
+        expect(friends.findByName("Bob")).andReturn(bob);
+        expect(bob.getFriends()).andReturn(expected);
+        replay(friends);
+        replay(bob);
+        assertThat(friendships.getFriendsList("Bob")).isEmpty();
     }
 
     @Test
-    public void joeAndMaciejAreNotFriends(){
-        assertThat(friendships.areFriends("Maciej", "Joe")).isFalse();
+    public void bobAndMaciejAreNotFriends(){
+        assertThat(friendships.areFriends("Maciej", "Bob")).isFalse();
     }
 
     @Test
@@ -64,18 +70,18 @@ class FriendshipsMongoEasyMockTest {
 
     @Test
     public void addFiendTest(){
-        Person joe = createMock(Person.class);
+        Person bob = createMock(Person.class);
         List<String> expected = new ArrayList<>();
 
-        joe.addFriend(anyString());
+        bob.addFriend(anyString());
 
-        expect(joe.getFriends()).andReturn(expected);
+        expect(bob.getFriends()).andReturn(expected);
     }
 
     @Test
     public void setNameThrowsException() {
-        Person joe = createMock(Person.class);
-        joe.setName("");
+        Person bob = createMock(Person.class);
+        bob.setName("");
         expectLastCall().andThrow(new RuntimeException());
     }
 

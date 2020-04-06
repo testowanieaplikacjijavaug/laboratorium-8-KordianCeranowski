@@ -57,15 +57,12 @@ class NotesServiceTest {
 
     @Test
     void averageOfTest() {
-        ArrayList<Note> notes = new ArrayList<>();
-        notes.add(note);
 
-        notesService.averageOf(anyString());
-        EasyMock.expectLastCall().andAnswer(() -> notes).times(2);
+        notesService.averageOf("Bob");
+        EasyMock.expectLastCall().andAnswer(EasyMock::anyFloat).times(1);
         replay(notesService);
 
-        assertThat(notesService.averageOf(anyString())).isEqualTo(notes);
-        assertThat(notesService.averageOf(anyString())).isEqualTo(notes);
+        notesService.averageOf("Bob");
         verify(notesService);
     }
 
