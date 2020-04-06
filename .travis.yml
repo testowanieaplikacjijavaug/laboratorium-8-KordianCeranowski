@@ -3,7 +3,7 @@ sudo: false # faster builds
 
 env:
   global:
-    - CODECOV_TOKEN="2aa99382-9ca3-4971-a144-628bc1689050" # not required but to be sure
+    - CODECOV_TOKEN="e8f8468d-168f-4749-b055-db5b92c12109"
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
