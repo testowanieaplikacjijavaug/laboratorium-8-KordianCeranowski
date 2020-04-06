@@ -33,7 +33,6 @@ class NotesStorageTest {
 
         notesStorage.add(note);
 
-        assertThat(notes).contains(note);
         verify(notesStorage);
     }
 
@@ -51,7 +50,6 @@ class NotesStorageTest {
 
         notesStorage.clear();
 
-        assertThat(notes).doesNotContain(note).isEmpty();
         verify(notesStorage);
     }
 
@@ -60,11 +58,12 @@ class NotesStorageTest {
         ArrayList<Note> notes = new ArrayList<>();
         notes.add(note);
 
-        notesStorage.getAllNotesOf(anyString());
+        notesStorage.getAllNotesOf("Bob");
         EasyMock.expectLastCall().andAnswer(() -> notes).times(1);
         replay(notesStorage);
 
-        notesStorage.getAllNotesOf(anyString());
+        notesStorage.getAllNotesOf("Bob");
+
         verify(notesStorage);
     }
 
